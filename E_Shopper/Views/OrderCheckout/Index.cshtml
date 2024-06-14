@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container checkout-container">
+    <div class="row">
+        <!-- 商品清單 -->
+        <div class="col-md-8 order-summary">
+            <h4>商品清單</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>商品</th>
+                        <th>照片</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>總價</th>
+                        <th>商品ID</th>
+                    </tr>
+                </thead>
+                <tbody id="orderItems">
+                    @foreach (var item in Model)
+                    {
+                        var itemTotal = Convert.ToInt32(item.VCHRPRICE) * Convert.ToInt32(item.VCHQUANTITY);
+        <tr data-price="@item.VCHRPRICE" data-quantity="@item.VCHQUANTITY">
+            <td>@item.VCHRNAME</td>
+            <td><img src="@Url.Content("~" + item.VCHRMAINIMAGEURL)" alt="@item.VCHRNAME" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+            <td>@item.VCHRPRICE</td>
+            <td>@item.VCHQUANTITY</td>
+            <td class="item-total">@itemTotal</td>
+            <td class="item-total">@item.VCHRPRODUCTID</td>
+        </tr>}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 結帳表單 -->
+        <div class="col-md-4 checkout-form">
+            <h4>結帳資訊</h4>
+            <form id="checkoutFormOrder">
+                <!-- 付款方式 -->
+                <div class="form-group">
+                    <label for="paymentMethod">付款方式</label>
+                    <select class="form-control" id="paymentMethod" required>
+                        <option value="">請選擇付款方式</option>
+                        <option value="creditCard">信用卡</option>
+                        <option value="atm">ATM 轉帳</option>
+                        <option value="cashOnDelivery">貨到付款</option>
+                    </select>
+                </div>
+
+                <!-- 取貨方式 -->
+                <div class="form-group">
+                    <label for="deliveryMethod">取貨方式</label>
+                    <select class="form-control" id="deliveryMethod" required>
+                        <option value="">請選擇取貨方式</option>
+                        <option value="homeDelivery">宅配到府</option>
+                        <option value="storePickup">超商取貨</option>
+                    </select>
+                </div>
+
+                <!-- 寄送地點 -->
+                <div class="form-group">
+                    <label for="shippingAddress">寄送地點</label>
+                    <input type="text" class="form-control" id="shippingAddress" placeholder="請輸入寄送地址" required>
+                </div>
+
+                <!-- 備註框 -->
+                <div class="form-group">
+                    <label for="orderNotes">備註</label>
+                    <textarea class="form-control" id="orderNotes" rows="3" placeholder="有什麼需要注意的嗎？"></textarea>
+                </div>
+
+                <!-- 運費 -->
+                <div class="form-group">
+                    <label for="shippingFee">運費</label>
+                    <input readonly type="number" class="form-control" id="shippingFeeInput" placeholder="請輸入運費" required>
+                </div>
+
+                <!-- 優惠卷折扣 -->
+                <div class="form-group">
+                    <label for="discount">優惠卷折扣</label>
+                    <input readonly type="number" class="form-control" id="discountInput" placeholder="請輸入優惠卷折扣" required>
+                </div>
+
+                <!-- 最終計算 -->
+                <div class="order-total">
+                    <h5>結帳金額: <span id="totalCheckoutPrice">$0</span></h5>
+                    <h4>應付金額: <span id="finalTotal">$0</span></h4>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">確認結帳</button>
+            </form>
+        </div>
+    </div>
+</div>

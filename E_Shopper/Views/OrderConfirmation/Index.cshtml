@@ -1,0 +1,34 @@
+﻿@model E_Shopper.ViewModels.OrderConfirmationViewModel
+
+<div class="container">
+    <h2>訂單確認</h2>
+    <p>訂單編號: @Model.OrderId</p>
+    <p>總金額: @Model.TotalAmount</p>
+    <p>付費方式: @Model.PaymentMethod</p>
+    <p>寄送地點: @Model.ShippingAddress</p>
+
+    <h4>商品清單</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>商品名稱</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>總金額</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItem_OrderConfirmations)
+            {
+            <tr>
+                <td><img src="@Url.Content("~" + item.ProductImageURL)" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>@(Convert.ToInt32(item.Price) * Convert.ToInt32(item.Quantity))</td>
+            </tr>            }
+        </tbody>
+    </table>
+</div>
+

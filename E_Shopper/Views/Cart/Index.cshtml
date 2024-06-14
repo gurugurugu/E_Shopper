@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<section id="cart_items">
+    <div class="container">
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="checkbox"></td>
+                        <td class="image">照片</td>
+                        <td class="description"></td>
+                        <td class="price">單價</td>
+                        <td class="quantity">數量</td>
+                        <td class="total">總金額</td>
+                        <td class="button">刪除</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="selectItem" value="@item.VCHCARTITEMID" data-price="@item.VCHRPRICE" data-quantity="@item.VCHQUANTITY"></td>
+                            <td><img src="@Url.Content("~" + item.VCHRMAINIMAGEURL)" alt="@item.VCHRNAME" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                            <td>@item.VCHRNAME</td>
+                            <td>@item.VCHRPRICE</td>
+                            <td>
+                                <div class="quantity-control">
+                                    <button type="button" class="btn btn-default decrease-quantity" data-cartitemid="@item.VCHCARTITEMID">-</button>
+                                    <input type="text" class="quantity-input" value="@item.VCHQUANTITY" readonly style="width: 40px; text-align: center;" />
+                                    <button type="button" class="btn btn-default increase-quantity" data-cartitemid="@item.VCHCARTITEMID">+</button>
+                                </div>
+                            </td>
+                            <td class="item-total">@(Convert.ToInt32(item.VCHRPRICE) * Convert.ToInt32(item.VCHQUANTITY))</td>
+                            <td class="cart_delete">
+                                <button class="btn btn-danger delete-cart-item" data-cartitemid="@item.VCHCARTITEMID">刪除</button> <!-- 添加一个删除按钮 -->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <div class="col-md-4">
+            <div class="checkout-info p-4 border">
+                <h4>結帳資訊</h4>
+                <p>商品原價總金額: <span id="totalOriginalPrice">$0</span></p>
+                <p>結帳金額: <span id="totalCheckoutPrice">$0</span></p>
+                <form id="checkoutForm" action="/OrderCheckout/Index" method="post">
+                    <input type="hidden" id="selectedItems" name="selectedItems" value="">
+                    <button type="button" id="checkoutButton" class="btn btn-primary btn-block">結帳</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section> <!--/#cart_items-->
+
+
+
+
+
+
+
+
+
+

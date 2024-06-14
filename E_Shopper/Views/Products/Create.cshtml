@@ -1,0 +1,125 @@
+﻿@model E_Shopper.ViewModels.ProductsViewModel
+
+@{ ViewBag.Title = "新增商品"; }
+
+<h2>新增商品</h2>
+
+<form action="@Url.Action("Create", "Products")" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+    <div class="form-horizontal">
+        <h4>商品資訊</h4>
+        <hr />
+
+        <div class="form-group">
+            <label for="VCHRNAME" class="control-label col-md-2">名稱</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRNAME" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRNAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRDESCRIPTION" class="control-label col-md-2">描述</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRDESCRIPTION" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRDESCRIPTION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- 根據 ProductsViewModel 的其他屬性繼續添加表單字段 -->
+        <div class="form-group">
+            <label for="VCHRCATEGORY" class="control-label col-md-2">類別</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRCATEGORY" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRCATEGORY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRBRAND" class="control-label col-md-2">品牌</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRBRAND" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRBRAND, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRPRICE" class="control-label col-md-2">價格</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRPRICE" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRPRICE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRDISCOUNTPRICE" class="control-label col-md-2">折扣價格</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRDISCOUNTPRICE" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRDISCOUNTPRICE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRSTOCKQUANTITY" class="control-label col-md-2">庫存數量</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRSTOCKQUANTITY" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRSTOCKQUANTITY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRCOLOR" class="control-label col-md-2">顏色</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRCOLOR" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRCOLOR, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRSIZE" class="control-label col-md-2">尺寸</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRSIZE" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRSIZE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRMATERIAL" class="control-label col-md-2">材質</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRMATERIAL" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRMATERIAL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="VCHRMAINIMAGEURL" class="control-label col-md-2">主圖URL</label>
+            <div class="col-md-10">
+                <input type="file" name="MainImageFile" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRMAINIMAGEURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRSTATUS" class="control-label col-md-2">狀態</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRSTATUS" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRSTATUS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VCHRTAGS" class="control-label col-md-2">標籤</label>
+            <div class="col-md-10">
+                <input type="text" name="VCHRTAGS" class="form-control" />
+                @Html.ValidationMessageFor(model => model.VCHRTAGS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="新增" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>

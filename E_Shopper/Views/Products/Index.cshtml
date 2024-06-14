@@ -1,0 +1,138 @@
+﻿@model IEnumerable<E_Shopper.ViewModels.ProductsViewModel>
+
+@{ ViewBag.Title = "商品列表"; }
+
+
+
+<h2>商品列表</h2>
+<p>
+    <a href="@Url.Action("Create", "Products")" class="btn btn-success">新增商品</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>商品名稱</th>
+            <th>描述</th>
+            <th>類別</th>
+            <th>品牌</th>
+            <th>價格</th>
+            <th>折扣價格</th>
+            <th>庫存數量</th>
+            <th>顏色</th>
+            <th>尺寸</th>
+            <th>材料</th>
+            <th style="display: none;">主圖URL</th>
+            <th>狀態</th>
+            <th>標籤</th>
+            <th>操作</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+         {
+        <tr>
+            <td>@product.VCHRPRODUCTID</td>
+            <td>@product.VCHRDESCRIPTION</td>
+            <td>@product.VCHRCATEGORY</td>
+            <td>@product.VCHRBRAND</td>
+            <td>@product.VCHRPRICE</td>
+            <td>@product.VCHRDISCOUNTPRICE</td>
+            <td>@product.VCHRSTOCKQUANTITY</td>
+            <td>@product.VCHRCOLOR</td>
+            <td>@product.VCHRSIZE</td>
+            <td>@product.VCHRMATERIAL</td>
+            <td style="display: none;">@product.VCHRMAINIMAGEURL</td>
+            <td>
+                <select class="form-control status-dropdown" data-productid="@product.VCHRPRODUCTID">
+                    <option value="上架中" @(product.VCHRSTATUS == "上架中" ? "selected" : "")>上架中</option>
+                    <option value="下架中" @(product.VCHRSTATUS == "下架中" ? "selected" : "")>下架中</option>
+                </select>
+            </td>
+            <td>@product.VCHRTAGS</td>
+
+            <td><button class="btn btn-primary edit-product" data-productid="@product.VCHRPRODUCTID">編輯</button></td>
+            <td><button class="btn btn-danger  delete-product" data-productid="@product.VCHRPRODUCTID">刪除</button></td>
+        </tr>
+         }
+    </tbody>
+</table>
+
+<!-- Dialog -->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">编辑商品</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId">
+                    <div class="form-group">
+                        <label for="editProductName">商品名稱</label>
+                        <input readonly type="text" class="form-control" id="editProductName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductDescription">描述</label>
+                        <input type="text" class="form-control" id="editProductDescription" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductCategory">類別</label>
+                        <input type="text" class="form-control" id="editProductCategory" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductBrand">品牌</label>
+                        <input type="text" class="form-control" id="editProductBrand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductPrice">價格</label>
+                        <input type="text" class="form-control" id="editProductPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductDiscountPrice">折扣價格</label>
+                        <input type="text" class="form-control" id="editProductDiscountPrice">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductStockQuantity">庫存數量</label>
+                        <input type="text" class="form-control" id="editProductStockQuantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductColor">顏色</label>
+                        <input type="text" class="form-control" id="editProductColor">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductSize">尺寸</label>
+                        <input readonly type="text" class="form-control" id="editProductSize">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductMaterial">材料</label>
+                        <input type="text" class="form-control" id="editProductMaterial">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductMainImageUrl">主圖URL</label>
+                        <input type="file" class="form-control" id="editProductMainImageUrl" name="MainImageFile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductStatus">狀態</label>
+                        <select class="form-control" id="editProductStatus" required>
+                            <option value="上架中">上架中</option>
+                            <option value="下架中">下架中</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductTags">標籤</label>
+                        <input type="text" class="form-control" id="editProductTags">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="saveProductChanges">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>

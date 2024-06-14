@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/price-range.css" rel="stylesheet">
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/main.css" rel="stylesheet">
+    <link href="~/Content/responsive.css" rel="stylesheet">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!--Produts Manage-->
+    <style>
+        .btn.btn-success {
+            background: #2856eb;
+            border: 0 none;
+            border-radius: 0;
+            margin-top: 16px;
+        }
+        .btn.btn-danger {
+            background: #e10a0a;
+            border: 0 none;
+            border-radius: 0;
+            margin-top: 16px;
+        }
+    </style>
+    <!--Produts Details-->
+    <style>
+        .product-details {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-info, .purchase-info {
+            width: 48%;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+
+            .quantity-control button {
+                margin: 0 5px;
+            }
+
+            .quantity-control input {
+                width: 50px;
+                text-align: center;
+            }
+    </style>
+    <!--Shopping Car-->
+    <style>
+        .checkout-info {
+            position: sticky;
+            top: 20px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+
+            .quantity-control button {
+                width: 40px;
+                height: 40px;
+            }
+
+            .quantity-control input {
+                text-align: center;
+                width: 60px;
+                margin: 0 5px;
+            }
+    </style>
+
+</head>
+<body>
+    <header id="header">
+        <!--header-->
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="~/Home/Index"><img src="~/images/home/logo.png" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#" /><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="@Url.Action("Login", "Account")"><i class="fa fa-lock"></i> Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+
+        <div class="header-bottom">
+            <!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li><a href="index.html" class="active">Home</a></li>
+
+                                <li><a href="manageorder.html">Order Management</a></li>
+                                <li><a href="~/Products/Index">Product Management</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="search_box pull-right">
+                            <input type="text" placeholder="Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-bottom-->
+    </header><!--/header-->
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+    <!--Produts Management Status-->
+    <script>
+    $(document).ready(function () {
+        $(".status-dropdown").change(function () {
+            var productId = $(this).data("productid");
+            var newStatus = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("UpdateProductStatus", "Products")',
+                type: 'POST',
+                data: {
+                    productId: productId,
+                    status: newStatus
+                },
+                success: function (response) {
+                    alert("狀態更新成功");
+                },
+                error: function (xhr, status, error) {
+                    alert("狀態更新失敗");
+                }
+            });
+        });
+    });
+    </script>
+
+    <!--Produts Management Edit Delete-->
+    <script>
+        $(document).ready(function () {
+            // 当点击编辑按钮时
+            $(".edit-product").click(function () {
+                var productId = $(this).data("productid");
+
+                // 获取对应的产品数据
+                var row = $(this).closest("tr");
+                var name = row.find("td:eq(0)").text();
+                var description = row.find("td:eq(1)").text();
+                var category = row.find("td:eq(2)").text();
+                var brand = row.find("td:eq(3)").text();
+                var price = row.find("td:eq(4)").text();
+                var discountPrice = row.find("td:eq(5)").text();
+                var stockQuantity = row.find("td:eq(6)").text();
+                var color = row.find("td:eq(7)").text();
+                var size = row.find("td:eq(8)").text();
+                var material = row.find("td:eq(9)").text();
+                var mainImageUrl = row.find("td:eq(10)").text();
+                var status = row.find("select option:selected").val();
+                var tags = row.find("td:eq(12)").text();
+
+                // 填充模态框
+                $("#editProductId").val(productId);
+                $("#editProductName").val(name);
+                $("#editProductDescription").val(description);
+                $("#editProductCategory").val(category);
+                $("#editProductBrand").val(brand);
+                $("#editProductPrice").val(price);
+                $("#editProductDiscountPrice").val(discountPrice);
+                $("#editProductStockQuantity").val(stockQuantity);
+                $("#editProductColor").val(color);
+                $("#editProductSize").val(size);
+                $("#editProductMaterial").val(material);
+                // 文件输入不能设置值，所以这里注释掉
+                // $("#editProductMainImageUrl").val(mainImageUrl);
+                $("#editProductStatus").val(status);
+                $("#editProductTags").val(tags);
+
+                // 显示模态框
+                $("#editProductModal").modal("show");
+            });
+
+            // 当点击保存按钮时
+            $("#saveProductChanges").click(function () {
+                var form = $("#editProductForm")[0];
+                var formData = new FormData(form);
+
+                formData.append("VCHRPRODUCTID", $("#editProductId").val());
+                formData.append("VCHRNAME", $("#editProductName").val());
+                formData.append("VCHRDESCRIPTION", $("#editProductDescription").val());
+                formData.append("VCHRCATEGORY", $("#editProductCategory").val());
+                formData.append("VCHRBRAND", $("#editProductBrand").val());
+                formData.append("VCHRPRICE", $("#editProductPrice").val());
+                formData.append("VCHRDISCOUNTPRICE", $("#editProductDiscountPrice").val());
+                formData.append("VCHRSTOCKQUANTITY", $("#editProductStockQuantity").val());
+                formData.append("VCHRCOLOR", $("#editProductColor").val());
+                formData.append("VCHRSIZE", $("#editProductSize").val());
+                formData.append("VCHRMATERIAL", $("#editProductMaterial").val());
+                formData.append("VCHRSTATUS", $("#editProductStatus").val());
+                formData.append("VCHRTAGS", $("#editProductTags").val());
+
+                var mainImageFile = $("#editProductMainImageUrl")[0].files[0];
+                if (mainImageFile) {
+                    formData.append("MainImageFile", mainImageFile);
+                }
+
+                // 发送 AJAX 请求更新数据
+                $.ajax({
+                    type: "POST",
+                    url: "/Products/UpdateProduct", // 修改为实际处理更新请求的路由地址
+                    data: formData,
+                    contentType: false, // 必须设置为 false 才能正确处理文件数据
+                    processData: false, // 必须设置为 false 才能正确处理 FormData
+                    success: function (response) {
+                        // 更新成功后的处理
+                        console.log("Product updated successfully.");
+                        // 关闭模态框
+                        $("#editProductModal").modal("hide");
+                        // 刷新页面或更新相关部分
+                        // 可以根据需要进行页面的刷新或更新操作
+                        location.reload()
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error updating product: " + error);
+                        // 可以根据需要处理错误情况
+                    }
+                });
+            });
+
+            $(".delete-product").click(function () {
+                var productId = $(this).data("productid");
+
+                if (confirm("確定要刪除這個商品嗎？")) {
+                    // 发送 AJAX 请求删除商品
+                    $.ajax({
+                        type: "POST",
+                        url: "/Products/DeleteProduct", // 修改为实际处理删除请求的路由地址
+                        data: { productId: productId },
+                        success: function (response) {
+                            // 删除成功后的处理
+                            console.log("Product deleted successfully.");
+                            // 刷新页面或更新相关部分
+                            // 可以根据需要进行页面的刷新或更新操作
+                            location.reload(); // 例如刷新页面
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error deleting product: " + error);
+                            // 可以根据需要处理错误情况
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!--Produts Details AddtoCart-->
+    <script>
+    $(document).ready(function () {
+        $('#addToCartButton').click(function () {
+            var productId = $('#productidInput').val();
+            var quantity = $('#quantityInput').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddToCartAndQuantity", "ProductsDetail")',
+                data: {
+                    productId: productId,
+                    quantity: quantity
+                },
+                success: function (response) {
+                    alert('Product added to cart successfully.');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error adding product to cart: ' + error);
+                }
+            });
+        });
+    });
+    </script>
+    <!--Produts Details 購買數量框-->
+    <script>
+        $(document).ready(function () {
+            $('#decreaseQuantity').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                if (quantity > 1) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+
+            $('#increaseQuantity').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                $('#quantity').val(quantity + 1);
+            });
+        });
+    </script>
+    <!--Shopping Cart 計算、刪除-->
+    <script>
+        $(document).ready(function () {
+            const selectAllCheckbox = $("#selectAll");
+            const itemCheckboxes = $('input[name="selectItem"]');
+            const totalOriginalPrice = $("#totalOriginalPrice");
+            const totalCheckoutPrice = $("#totalCheckoutPrice");
+
+            function updateTotalPrice() {
+                let totalOriginal = 0;
+                let totalCheckout = 0;
+
+                itemCheckboxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        const row = $(this).closest("tr");
+                        const price = parseFloat($(this).data("price"));
+                        const quantity = parseInt(row.find(".quantity-input").val());
+                        totalOriginal += price * quantity;
+                        totalCheckout += price * quantity;
+                    }
+                });
+
+                totalOriginalPrice.text("$" + totalOriginal.toFixed(2));
+                totalCheckoutPrice.text("$" + totalCheckout.toFixed(2));
+            }
+
+            function updateItemTotal(row) {
+                const price = parseFloat(row.find('input[name="selectItem"]').data("price"));
+                const quantity = parseInt(row.find(".quantity-input").val());
+                const itemTotal = row.find(".item-total");
+                itemTotal.text("$" + (price * quantity).toFixed(2));
+            }
+
+            selectAllCheckbox.change(function () {
+                itemCheckboxes.prop("checked", $(this).prop("checked"));
+                updateTotalPrice();
+            });
+
+            itemCheckboxes.change(function () {
+                updateTotalPrice();
+            });
+
+            $(".decrease-quantity").click(function () {
+                const quantityInput = $(this).next(".quantity-input");
+                let quantity = parseInt(quantityInput.val());
+                if (quantity > 1) {
+                    quantityInput.val(quantity - 1);
+                    const row = $(this).closest("tr");
+                    updateItemTotal(row);
+                    updateTotalPrice();
+
+                    // 更新到后端
+                    var cartItemId = $(this).data("cartitemid");
+                    updateCartItem(cartItemId, quantity - 1);
+                }
+            });
+
+            $(".increase-quantity").click(function () {
+                const quantityInput = $(this).prev(".quantity-input");
+                let quantity = parseInt(quantityInput.val());
+                quantityInput.val(quantity + 1);
+                const row = $(this).closest("tr");
+                updateItemTotal(row);
+                updateTotalPrice();
+
+                // 更新到后端
+                var cartItemId = $(this).data("cartitemid");
+                console.log(cartItemId)
+                updateCartItem(cartItemId, quantity + 1);
+            });
+
+            $(".delete-cart-item").on("click", function () {
+                var cartItemId = $(this).data("cartitemid");
+                console.log(cartItemId)
+                var row = $(this).closest("tr");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/DeleteCartItem",
+                    data: { cartitemid: cartItemId },
+                    success: function (response) {
+                        row.find('input[name="selectItem"]').prop("checked", false);
+                        row.remove();
+                        updateTotalPrice();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error deleting CartItem: " + error);
+                    }
+                });
+            });
+
+            function updateCartItem(cartItemId, newQuantity) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/UpdateCartItem",
+                    data: { cartitemid: cartItemId, quantity: newQuantity },
+                    success: function (response) {
+                        console.log("CartItem updated successfully.");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error updating CartItem: " + error);
+                    }
+                });
+            }
+
+            updateTotalPrice();
+        });
+    </script>
+    <!--Shopping Cart 結帳隱藏字段-->
+    <script>
+        $(document).ready(function () {
+            $("#checkoutButton").click(function () {
+                var selectedItems = [];
+                $('input[name="selectItem"]:checked').each(function () {
+                    selectedItems.push($(this).val());
+                });
+
+
+                // 将选中的商品ID转换为逗号分隔的字符串
+                $("#selectedItems").val(selectedItems.join(","));
+
+                console.log(selectedItems.join(","))
+
+                // 提交表单
+                $("#checkoutForm").submit();
+            });
+        });
+    </script>
+    <!--OrderCheckOut-->
+    <script>
+        $(document).ready(function () {
+            $("#checkoutFormOrder").submit(function (event) {
+                // 阻止默认表单提交行为
+                event.preventDefault();
+
+                // 收集表单数据
+                var formData = {
+                    totalAmount: $("#totalCheckoutPrice").text().replace("$", ""), // 移除美元符号
+                    paymentMethod: $("#paymentMethod").val(),
+                    deliveryMethod: $("#deliveryMethod").val(),
+                    shippingAddress: $("#shippingAddress").val(),
+                    orderNotes: $("#orderNotes").val(),
+                    orderItems: []
+                };
+
+                // 遍历每个订单项，收集商品信息
+                $("#orderItems tr").each(function () {
+                    var item = {
+                        name: $(this).find("td:eq(0)").text(),
+                        price: $(this).find("td:eq(2)").text(),
+                        quantity: $(this).find("td:eq(3)").text(),
+                        total: $(this).find("td:eq(4)").text(),
+                        productId: $(this).find("td:eq(5)").text()
+                    };
+                    formData.orderItems.push(item);
+                });
+
+                // 发送 AJAX 请求
+                $.ajax({
+                    type: "POST",
+                    url: "/OrderCheckout/Save",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        // 在成功响应时重定向到订单确认页面
+                        window.location.href = "/OrderConfirmation/Index/" + response.newOrderId;
+                    },
+                    error: function (xhr, status, error) {
+                        // 处理错误响应
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+    <!--OrderCheckOut 計算-->
+    <script>
+        $(document).ready(function () {
+            const totalCheckoutPriceElem = $("#totalCheckoutPrice");
+            const finalTotalElem = $("#finalTotal");
+            const shippingFeeInput = $("#shippingFeeInput");
+            const discountInput = $("#discountInput");
+
+            function calculateTotal() {
+                let totalCheckoutPrice = 0;
+
+                $("#orderItems tr").each(function () {
+                    const price = parseFloat($(this).data("price"));
+                    const quantity = parseInt($(this).data("quantity"));
+                    totalCheckoutPrice += price * quantity;
+                });
+
+                totalCheckoutPriceElem.text("$" + totalCheckoutPrice.toFixed(2));
+
+                const shippingFee = parseFloat(shippingFeeInput.val()) || 0;
+                const discount = parseFloat(discountInput.val()) || 0;
+
+                const finalTotal = totalCheckoutPrice + shippingFee - discount;
+                finalTotalElem.text("$" + finalTotal.toFixed(2));
+            }
+
+            shippingFeeInput.on("input", calculateTotal);
+            discountInput.on("input", calculateTotal);
+
+            calculateTotal(); // 初始化时计算一次
+        });
+    </script>
+
+
+
+</body>
+
+</html >

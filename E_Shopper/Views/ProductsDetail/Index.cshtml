@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="col-sm-9 padding-right">
+    <div class="product-details">
+        <!--product-details-->
+        <div class="col-sm-5">
+            <div class="view-product">
+                <img src="@Url.Content("~" + Model.VCHRMAINIMAGEURL)" alt="@Model.VCHRNAME" class="product-image" />
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+                <!--/product-information-->
+                <img src="~/images/ProductDetails/new.jpg" class="newarrival" alt="" />
+                <h2>@Model.VCHRNAME</h2>
+                <img src="~/images/ProductDetails/rating.png" alt="" />
+                <span>
+                    <span>$ @Model.VCHRPRICE</span>
+                    <label>購買數量:</label>
+                    <input type="text" id="quantityInput" value="1" />
+                    <input type="hidden" id="productidInput" value="@Model.VCHRPRODUCTID" />
+                    <button type="button" class="btn btn-fefault cart" id="addToCartButton">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </span>
+
+                <p><b>庫存數量:</b> @Model.VCHRSTOCKQUANTITY</p>
+                <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
+            </div><!--/product-information-->
+        </div>
+    </div><!--/product-details-->
+
+
+
