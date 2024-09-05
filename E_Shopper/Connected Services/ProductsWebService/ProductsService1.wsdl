@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetProducts">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductsResult" type="tns:ArrayOfProductsViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductsViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductsViewModel" nillable="true" type="tns:ProductsViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductsViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRPRODUCTID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRDESCRIPTION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRCATEGORY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRBRAND" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRDISCOUNTPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSTOCKQUANTITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRCOLOR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSIZE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMATERIAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMAINIMAGEURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSTATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRTAGS" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRCREATEDAT" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRUPDATEDAT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRAVERAGERATING" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRREVIEWCOUNT" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="tns:ProductsViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddProductResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateStatusResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="tns:ProductsViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProductResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateProductImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="tns:ProductsViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProductImageResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="productId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProductResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddProductSoapIn">
+    <wsdl:part name="parameters" element="tns:AddProduct" />
+  </wsdl:message>
+  <wsdl:message name="AddProductSoapOut">
+    <wsdl:part name="parameters" element="tns:AddProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProduct" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductImageSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProductImage" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductImageSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProductImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProductSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteProduct" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProductSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteProductResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProductsServiceSoap">
+    <wsdl:operation name="GetProducts">
+      <wsdl:input message="tns:GetProductsSoapIn" />
+      <wsdl:output message="tns:GetProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProduct">
+      <wsdl:input message="tns:AddProductSoapIn" />
+      <wsdl:output message="tns:AddProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <wsdl:input message="tns:UpdateStatusSoapIn" />
+      <wsdl:output message="tns:UpdateStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProduct">
+      <wsdl:input message="tns:UpdateProductSoapIn" />
+      <wsdl:output message="tns:UpdateProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductImage">
+      <wsdl:input message="tns:UpdateProductImageSoapIn" />
+      <wsdl:output message="tns:UpdateProductImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProduct">
+      <wsdl:input message="tns:DeleteProductSoapIn" />
+      <wsdl:output message="tns:DeleteProductSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductsServiceSoap" type="tns:ProductsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProducts">
+      <soap:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProduct">
+      <soap:operation soapAction="http://tempuri.org/AddProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProduct">
+      <soap:operation soapAction="http://tempuri.org/UpdateProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductImage">
+      <soap:operation soapAction="http://tempuri.org/UpdateProductImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProduct">
+      <soap:operation soapAction="http://tempuri.org/DeleteProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductsServiceSoap12" type="tns:ProductsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProducts">
+      <soap12:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProduct">
+      <soap12:operation soapAction="http://tempuri.org/AddProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProduct">
+      <soap12:operation soapAction="http://tempuri.org/UpdateProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductImage">
+      <soap12:operation soapAction="http://tempuri.org/UpdateProductImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProduct">
+      <soap12:operation soapAction="http://tempuri.org/DeleteProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductsService">
+    <wsdl:port name="ProductsServiceSoap" binding="tns:ProductsServiceSoap">
+      <soap:address location="https://localhost/ProductsService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductsServiceSoap12" binding="tns:ProductsServiceSoap12">
+      <soap12:address location="https://localhost/ProductsService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

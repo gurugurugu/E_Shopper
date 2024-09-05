@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetProducts">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductsResult" type="tns:ArrayOfHomeViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHomeViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HomeViewModel" nillable="true" type="tns:HomeViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HomeViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRPRODUCTID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRDESCRIPTION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRCATEGORY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRBRAND" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRDISCOUNTPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSTOCKQUANTITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRCOLOR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSIZE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMATERIAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMAINIMAGEURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSTATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRTAGS" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRCREATEDAT" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRUPDATEDAT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRAVERAGERATING" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRREVIEWCOUNT" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddToCartInDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="productId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddToCartInDatabaseResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IsProductInCart">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="productId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsProductInCartResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsProductInCartResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCategoriesWithCount">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCategoriesWithCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCategoriesWithCountResult" type="tns:ArrayOfCategoryCountViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCategoryCountViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CategoryCountViewModel" nillable="true" type="tns:CategoryCountViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CategoryCountViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductsByCategory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductsByCategoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductsByCategoryResult" type="tns:ArrayOfHomeViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddToCartInDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:AddToCartInDatabase" />
+  </wsdl:message>
+  <wsdl:message name="AddToCartInDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:AddToCartInDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsProductInCartSoapIn">
+    <wsdl:part name="parameters" element="tns:IsProductInCart" />
+  </wsdl:message>
+  <wsdl:message name="IsProductInCartSoapOut">
+    <wsdl:part name="parameters" element="tns:IsProductInCartResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCategoriesWithCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCategoriesWithCount" />
+  </wsdl:message>
+  <wsdl:message name="GetCategoriesWithCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCategoriesWithCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsByCategorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductsByCategory" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsByCategorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductsByCategoryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="HomeServiceSoap">
+    <wsdl:operation name="GetProducts">
+      <wsdl:input message="tns:GetProductsSoapIn" />
+      <wsdl:output message="tns:GetProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddToCartInDatabase">
+      <wsdl:input message="tns:AddToCartInDatabaseSoapIn" />
+      <wsdl:output message="tns:AddToCartInDatabaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsProductInCart">
+      <wsdl:input message="tns:IsProductInCartSoapIn" />
+      <wsdl:output message="tns:IsProductInCartSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoriesWithCount">
+      <wsdl:input message="tns:GetCategoriesWithCountSoapIn" />
+      <wsdl:output message="tns:GetCategoriesWithCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByCategory">
+      <wsdl:input message="tns:GetProductsByCategorySoapIn" />
+      <wsdl:output message="tns:GetProductsByCategorySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HomeServiceSoap" type="tns:HomeServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProducts">
+      <soap:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddToCartInDatabase">
+      <soap:operation soapAction="http://tempuri.org/AddToCartInDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsProductInCart">
+      <soap:operation soapAction="http://tempuri.org/IsProductInCart" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoriesWithCount">
+      <soap:operation soapAction="http://tempuri.org/GetCategoriesWithCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByCategory">
+      <soap:operation soapAction="http://tempuri.org/GetProductsByCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HomeServiceSoap12" type="tns:HomeServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProducts">
+      <soap12:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddToCartInDatabase">
+      <soap12:operation soapAction="http://tempuri.org/AddToCartInDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsProductInCart">
+      <soap12:operation soapAction="http://tempuri.org/IsProductInCart" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoriesWithCount">
+      <soap12:operation soapAction="http://tempuri.org/GetCategoriesWithCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByCategory">
+      <soap12:operation soapAction="http://tempuri.org/GetProductsByCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HomeService">
+    <wsdl:port name="HomeServiceSoap" binding="tns:HomeServiceSoap">
+      <soap:address location="https://localhost/HomeService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HomeServiceSoap12" binding="tns:HomeServiceSoap12">
+      <soap12:address location="https://localhost/HomeService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

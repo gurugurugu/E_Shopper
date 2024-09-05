@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://yourwebsite.com/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://yourwebsite.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://yourwebsite.com/">
+      <s:element name="GetCartbyUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCartbyUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCartbyUserIdResult" type="tns:ArrayOfCartViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCartViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CartViewModel" nillable="true" type="tns:CartViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CartViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VCHCARTITEMID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRPRODUCTID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHQUANTITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRSTOCKQUANTITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMAINIMAGEURL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeletebyCartItemId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="cartitemid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletebyCartItemIdResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateCartItemQuantity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="cartItemId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="quantity" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCartItemQuantityResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCartbyUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCartbyUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetCartbyUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCartbyUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletebyCartItemIdSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletebyCartItemId" />
+  </wsdl:message>
+  <wsdl:message name="DeletebyCartItemIdSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletebyCartItemIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCartItemQuantitySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCartItemQuantity" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCartItemQuantitySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCartItemQuantityResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CartServiceSoap">
+    <wsdl:operation name="GetCartbyUserId">
+      <wsdl:input message="tns:GetCartbyUserIdSoapIn" />
+      <wsdl:output message="tns:GetCartbyUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletebyCartItemId">
+      <wsdl:input message="tns:DeletebyCartItemIdSoapIn" />
+      <wsdl:output message="tns:DeletebyCartItemIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCartItemQuantity">
+      <wsdl:input message="tns:UpdateCartItemQuantitySoapIn" />
+      <wsdl:output message="tns:UpdateCartItemQuantitySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CartServiceSoap" type="tns:CartServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCartbyUserId">
+      <soap:operation soapAction="http://yourwebsite.com/GetCartbyUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletebyCartItemId">
+      <soap:operation soapAction="http://yourwebsite.com/DeletebyCartItemId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCartItemQuantity">
+      <soap:operation soapAction="http://yourwebsite.com/UpdateCartItemQuantity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CartServiceSoap12" type="tns:CartServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCartbyUserId">
+      <soap12:operation soapAction="http://yourwebsite.com/GetCartbyUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletebyCartItemId">
+      <soap12:operation soapAction="http://yourwebsite.com/DeletebyCartItemId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCartItemQuantity">
+      <soap12:operation soapAction="http://yourwebsite.com/UpdateCartItemQuantity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CartService">
+    <wsdl:port name="CartServiceSoap" binding="tns:CartServiceSoap">
+      <soap:address location="https://localhost/CartService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CartServiceSoap12" binding="tns:CartServiceSoap12">
+      <soap12:address location="https://localhost/CartService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

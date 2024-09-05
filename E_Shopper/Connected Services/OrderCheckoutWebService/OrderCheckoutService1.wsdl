@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetOrderDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="selectedItems" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetOrderDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderDetailsResult" type="tns:ArrayOfOrderCheckoutViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOrderCheckoutViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderCheckoutViewModel" nillable="true" type="tns:OrderCheckoutViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderCheckoutViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VCHCARTITEMID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHRPRODUCTID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHQUANTITY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VCHUSERID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRPRICE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VCHRMAINIMAGEURL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveOrderToDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="totalAmount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="deliveryMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="shippingAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderNotes" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderToDatabaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrderToDatabaseResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderDetailsToDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderItems" type="tns:ArrayOfOrderItem" />
+            <s:element minOccurs="1" maxOccurs="1" name="newOrderId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOrderItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderItem" nillable="true" type="tns:OrderItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="price" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="total" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="productid" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveOrderDetailsToDatabaseResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetOrderDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderToDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderToDatabase" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderToDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderToDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderDetailsToDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderDetailsToDatabase" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderDetailsToDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderDetailsToDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OrderCheckoutServiceSoap">
+    <wsdl:operation name="GetOrderDetails">
+      <wsdl:input message="tns:GetOrderDetailsSoapIn" />
+      <wsdl:output message="tns:GetOrderDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderToDatabase">
+      <wsdl:input message="tns:SaveOrderToDatabaseSoapIn" />
+      <wsdl:output message="tns:SaveOrderToDatabaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetailsToDatabase">
+      <wsdl:input message="tns:SaveOrderDetailsToDatabaseSoapIn" />
+      <wsdl:output message="tns:SaveOrderDetailsToDatabaseSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderCheckoutServiceSoap" type="tns:OrderCheckoutServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOrderDetails">
+      <soap:operation soapAction="http://tempuri.org/GetOrderDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderToDatabase">
+      <soap:operation soapAction="http://tempuri.org/SaveOrderToDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetailsToDatabase">
+      <soap:operation soapAction="http://tempuri.org/SaveOrderDetailsToDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OrderCheckoutServiceSoap12" type="tns:OrderCheckoutServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOrderDetails">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderToDatabase">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrderToDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetailsToDatabase">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrderDetailsToDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderCheckoutService">
+    <wsdl:port name="OrderCheckoutServiceSoap" binding="tns:OrderCheckoutServiceSoap">
+      <soap:address location="https://localhost/OrderCheckoutService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OrderCheckoutServiceSoap12" binding="tns:OrderCheckoutServiceSoap12">
+      <soap12:address location="https://localhost/OrderCheckoutService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

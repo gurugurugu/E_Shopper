@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using E_Shopper.ViewModels;
-using E_Shopper.Models;
+using E_Shopper.AccountWebService;
+
 
 
 namespace E_Shopper.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AccountModel _Model;
+        private readonly AccountServiceSoapClient _client;
         public AccountController()
         {
-            _Model = new AccountModel();
+            _client = new AccountServiceSoapClient();
         }
 
         // GET: Account
@@ -27,7 +27,9 @@ namespace E_Shopper.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
-            AccountViewModel userinfo = _Model.GetUserByUsername(username);
+
+
+            AccountViewModel userinfo = _client.GetUserByUsername(username);
 
 
             if (userinfo == null)
@@ -35,7 +37,7 @@ namespace E_Shopper.Controllers
                 ViewBag.ErrorMessage = "沒有該使用者";
                 return View();
             }
-            bool validateAccount = _Model.ValidatePassword(userinfo, password);
+            bool validateAccount = _client.ValidatePassword(userinfo, password);
 
 
             if (validateAccount != true)
@@ -63,6 +65,8 @@ namespace E_Shopper.Controllers
         {
             try
             {
+
+
                 if (password != confirmPassword)
                 {
                     ModelState.AddModelError("", "兩次密碼不一致");
@@ -74,19 +78,19 @@ namespace E_Shopper.Controllers
 
                 }
 
-                string passwordHash = AccountModel.HashPassword(password); // 加密密碼
+                
 
                 AccountViewModel user = new AccountViewModel
                 {
 
                     VCHUSERNAME = username,
-                    VCHPASSWORD = passwordHash,
+                    VCHPASSWORD = password,
                     VCHEMAIL = email,
                     VCHROLE = role
 
                 };
 
-                _Model.RegisterUser(user);
+                _client.RegisterUser(user);
 
             }
 

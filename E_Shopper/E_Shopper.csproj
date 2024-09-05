@@ -74,6 +74,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -157,6 +159,41 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Connected Services\AccountWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\CartWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\HomeWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\OrderCheckoutWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\OrderConfirmationWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ProductsDetailWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ProductsWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -167,24 +204,151 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModel.cs" />
-    <Compile Include="Models\CartModel.cs" />
-    <Compile Include="Models\ConnectionModel.cs" />
-    <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\OrderCheckoutModel.cs" />
-    <Compile Include="Models\OrderConfirmationModel.cs" />
-    <Compile Include="Models\ProductsDetailModel.cs" />
-    <Compile Include="Models\ProductsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AccountViewModel.cs" />
-    <Compile Include="ViewModels\CartViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\OrderCheckoutViewModel.cs" />
-    <Compile Include="ViewModels\OrderConfirmationViewModel.cs" />
-    <Compile Include="ViewModels\ProductsDetailViewModel.cs" />
-    <Compile Include="ViewModels\ProductsViewModel.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\AccountWebService\AccountService1.wsdl" />
+    <None Include="Connected Services\AccountWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\AccountWebService\configuration.svcinfo" />
+    <None Include="Connected Services\AccountWebService\AccountService1.disco" />
+    <Content Include="Connected Services\AccountWebService\E_Shopper.AccountWebService.AccountViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\AccountWebService\E_Shopper.AccountWebService.GetUserByUsernameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\AccountWebService\E_Shopper.AccountWebService.ValidatePasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\AccountWebService\E_Shopper.AccountWebService.RegisterUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\AccountWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\CartWebService\CartService1.wsdl" />
+    <None Include="Connected Services\CartWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\CartWebService\configuration.svcinfo" />
+    <None Include="Connected Services\CartWebService\CartService1.disco" />
+    <Content Include="Connected Services\CartWebService\E_Shopper.CartWebService.CartViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\CartWebService\E_Shopper.CartWebService.GetCartbyUserIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\CartWebService\E_Shopper.CartWebService.UpdateCartItemQuantityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\CartWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\HomeWebService\E_Shopper.HomeWebService.CategoryCountViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\HomeWebService\E_Shopper.HomeWebService.GetCategoriesWithCountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\HomeWebService\E_Shopper.HomeWebService.GetProductsByCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\HomeWebService\E_Shopper.HomeWebService.GetProductsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\HomeWebService\E_Shopper.HomeWebService.HomeViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\HomeWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\HomeWebService\configuration.svcinfo" />
+    <None Include="Connected Services\HomeWebService\HomeService1.wsdl" />
+    <None Include="Connected Services\HomeWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\HomeWebService\HomeService1.disco" />
+    <Content Include="Connected Services\OrderCheckoutWebService\E_Shopper.OrderCheckoutWebService.GetOrderDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\OrderCheckoutWebService\E_Shopper.OrderCheckoutWebService.OrderCheckoutViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\OrderCheckoutWebService\E_Shopper.OrderCheckoutWebService.SaveOrderDetailsToDatabaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\OrderCheckoutWebService\E_Shopper.OrderCheckoutWebService.SaveOrderToDatabaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\OrderCheckoutWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\OrderCheckoutWebService\configuration.svcinfo" />
+    <None Include="Connected Services\OrderCheckoutWebService\OrderCheckoutService1.wsdl" />
+    <None Include="Connected Services\OrderCheckoutWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\OrderCheckoutWebService\OrderCheckoutService1.disco" />
+    <Content Include="Connected Services\OrderConfirmationWebService\E_Shopper.OrderConfirmationWebService.GetOrderDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\OrderConfirmationWebService\E_Shopper.OrderConfirmationWebService.OrderConfirmationViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\OrderConfirmationWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\OrderConfirmationWebService\configuration.svcinfo" />
+    <None Include="Connected Services\OrderConfirmationWebService\OrderConfirmationService1.wsdl" />
+    <None Include="Connected Services\OrderConfirmationWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\OrderConfirmationWebService\OrderConfirmationService1.disco" />
+    <Content Include="Connected Services\ProductsDetailWebService\E_Shopper.ProductsDetailWebService.AddToCartInDatabaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsDetailWebService\E_Shopper.ProductsDetailWebService.GetProductByIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsDetailWebService\E_Shopper.ProductsDetailWebService.ProductsDetailViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\ProductsDetailWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\ProductsDetailWebService\configuration.svcinfo" />
+    <None Include="Connected Services\ProductsDetailWebService\ProductsDetailService1.wsdl" />
+    <None Include="Connected Services\ProductsDetailWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ProductsDetailWebService\ProductsDetailService1.disco" />
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.AddProductResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.GetProductsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.ProductsViewModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.UpdateProductImageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.UpdateProductResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ProductsWebService\E_Shopper.ProductsWebService.UpdateStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\ProductsWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\ProductsWebService\configuration.svcinfo" />
+    <None Include="Connected Services\ProductsWebService\ProductsService1.wsdl" />
+    <None Include="Connected Services\ProductsWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ProductsWebService\ProductsService1.disco" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -234,6 +398,8 @@
     <Content Include="images\Home\shipping.jpg" />
     <Content Include="images\ProductDetails\new.jpg" />
     <Content Include="images\ProductDetails\rating.png" />
+    <Content Include="images\Products\BJ.png" />
+    <Content Include="images\Products\登山長褲.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -243,6 +409,10 @@
     </None>
     <None Include="Oracle.ManagedDataAccess.Client.Configuration.Section.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -278,7 +448,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\Products\" />
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -292,6 +463,18 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\AccountWebService\" />
+    <WCFMetadataStorage Include="Connected Services\CartWebService\" />
+    <WCFMetadataStorage Include="Connected Services\HomeWebService\" />
+    <WCFMetadataStorage Include="Connected Services\OrderCheckoutWebService\" />
+    <WCFMetadataStorage Include="Connected Services\OrderConfirmationWebService\" />
+    <WCFMetadataStorage Include="Connected Services\ProductsDetailWebService\" />
+    <WCFMetadataStorage Include="Connected Services\ProductsWebService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

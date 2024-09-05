@@ -5,22 +5,27 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using E_Shopper.Models;
-using E_Shopper.ViewModels;
+using E_Shopper.ProductsWebService;
 
 namespace E_Shopper.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ProductsModel _Model;
+        private readonly ProductsServiceSoapClient _client;
+
         public ProductsController()
         {
-            _Model = new ProductsModel();
+            _client = new ProductsServiceSoapClient();
+
         }
         // GET: Products
         public ActionResult Index()
         {
-            List<ProductsViewModel> products = _Model.GetProducts();
+            ProductsViewModel[] productsArray = _client.GetProducts();
+
+            // 將數組轉換為 List<ProductsViewModel>
+            List<ProductsViewModel> products = productsArray.ToList();
+
             return View(products);
         }
 
@@ -52,7 +57,7 @@ namespace E_Shopper.Controllers
 
             if (ModelState.IsValid)
             {
-                _Model.AddProduct(product);
+                _client.AddProduct(product);
 
                 return RedirectToAction("Index");
             }
@@ -64,7 +69,7 @@ namespace E_Shopper.Controllers
         [HttpPost]
         public ActionResult UpdateProductStatus(string productId, string status)
         {
-            _Model.UpdateStatus(productId, status);
+            _client.UpdateStatus(productId, status);
 
             return Json(new { success = true });
 
@@ -87,14 +92,14 @@ namespace E_Shopper.Controllers
                     // 将文件路径保存到产品的VCHRMAINIMAGEURL字段中
                     product.VCHRMAINIMAGEURL = "/images/Products/" + fileName;
 
-                    _Model.UpdateProductImage(product);
+                    _client.UpdateProductImage(product);
 
 
 
                 }
 
                 // 更新产品信息
-                _Model.UpdateProduct(product);
+                _client.UpdateProduct(product);
 
                 return Json(new { success = true, message = "Product updated successfully." });
             }
@@ -113,7 +118,7 @@ namespace E_Shopper.Controllers
             try
             {
                 // 根据 productId 删除商品的逻辑，这里假设使用 ProductService 来处理删除操作
-                _Model.DeleteProduct(productId);
+                _client.DeleteProduct(productId);
 
                 return Json(new { success = true });
             }
